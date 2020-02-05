@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean class="com.xworkz.spring.dao.VidhanSoudhaDAOImpl"
+		id="vidhanSoudhaDAOImpl">
+		<property name="factory" ref="localSessionFactoryBean"></property>
+	</bean>
+
+
+
+	<bean
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+		id="localSessionFactoryBean">
+		<!-- <property name="configLocations" value="classpath:hibernate.cfg.xml"></property> -->
+
+		<property name="dataSource" ref="driverManagerDataSource"></property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.xworkz.spring.entity.VidhanSoudhaEntity</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</prop>
+			</props>
+		</property>
+	</bean>
+
+<!-- 	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="driverManagerDataSource">
+		 
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/agriculture"></property>
+	</bean> -->
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="driverManagerDataSource">
+		 
+		<property name="driverClassName"
+			value="${Vidhan.Soudha.Entity.driver.Class.Name}"></property>
+		<property name="username" value="${Vidhan.Soudha.Entity.user.name}"></property>
+		<property name="password" value="${Vidhan.Soudha.Entity.password}"></property>
+		<property name="url"
+			value="${Vidhan.Soudha.Entity.url}"></property>
+	</bean>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
+	<property name="locations" value="vidhansoudha.properties"></property>
+	</bean>
+</beans>
